@@ -1,1 +1,2 @@
-"# rpr21-zadaca2-eosmanspah2" 
+#Simple aws-lambda project using hexagonal arhitecture
+
