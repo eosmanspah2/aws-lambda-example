@@ -1,2 +1,2 @@
-#Simple aws-lambda project using hexagonal arhitecture
+Simple aws-lambda project using hexagonal arhitecture
 
