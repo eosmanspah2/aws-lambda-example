@@ -1,15 +1,13 @@
-const Repository = require("../ports/Repository");
+import { getStockData } from "../ports/Repository.js";
 
-const retrieveStockValues = async (stockID) => {
+export async function retrieveStockValues (stockID){
   try {
-    const stockValue = await Repository.getStockData(stockID);
-
+    console.log("4");
+    const stockValue = await getStockData(stockID);
     return stockValue;
   } catch (err) {
     return err;
   }
 };
 
-module.exports = {
-  retrieveStockValues,
-};
+

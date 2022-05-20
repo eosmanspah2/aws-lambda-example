@@ -1,14 +1,11 @@
-const getStockValue = require("../adapters/StocksDB");
+import { getStockValue } from "../adapters/StocksDB.js";
 
-const getStockData = async (stockID) => {
+export async function getStockData (stockID){
   try {
+    console.log("5");
     const data = await getStockValue(stockID);
     return data;
   } catch (err) {
     return err;
   }
-};
-
-module.exports = {
-  getStockData,
 };

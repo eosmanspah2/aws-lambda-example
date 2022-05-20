@@ -1,9 +1,5 @@
-const AWS = require("aws-sdk");
-AWS.config.update({
-  region: "eu-east-1",
-});
-
-const getStockValue = async (stockID = "1") => {
+export async function getStockValue (stockID){
+  console.log("6");
   const data = [
     { id: "1", name: "stock1", value: 100 },
     { id: "2", name: "stock2", value: 200 },
@@ -29,4 +25,3 @@ const getStockValue = async (stockID = "1") => {
   }
 };
 
-module.exports = getStockValue;

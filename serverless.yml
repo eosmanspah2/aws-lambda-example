@@ -1,15 +1,35 @@
 service: stock
 
-frameworkVersion: "3"
+frameworkVersion: "2.72.3"
 
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  environment:
+    TABLE_NAME:
+      Ref: osmanspahicProducts
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - {"Fn::GetAtt": ["osmanspahicProducts", "Arn"] }
+
+
+
+
 
 # The `functions` block defines what code to deploy
 functions:
-  helloWorld:
+  stocks:
     handler: handler.stocksMarket
     # The `events` block defines how to trigger the handler.helloWorld code
     events:
@@ -17,3 +37,48 @@ functions:
           path: /stock/{StockID}
           method: get
           cors: true
+      - http:
+          path: /dynamoDB/{productID}
+          method: get
+          cors: true
+      - http:
+          path: /dynamoDB/
+          method: post
+          
+      - http:
+          path: /dynamoDB/{productID}
+          method: delete
+          
+      - http:
+          path: /dynamoDB/{productID}
+          method: put
+          
+      - http:
+          path: /dynamoDB/
+          method: get
+          
+      - http:
+          path: /sellableProduct/
+          method: get
+          
+
+
+
+
+resources:
+  Resources:
+    osmanspahicProducts:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: osmanspahicProducts
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+      
