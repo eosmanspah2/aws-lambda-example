@@ -18,6 +18,7 @@ export async function getDbInformation(event, productId){
           }
           break;
         case 'POST':
+            console.log("Ulazim u post 2");
             response = await postProductPort(event.body);
             break;
         case 'PUT':
@@ -36,4 +37,3 @@ export async function getDbInformation(event, productId){
   }
   return response;
 };
-

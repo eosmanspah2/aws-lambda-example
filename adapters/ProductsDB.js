@@ -61,7 +61,7 @@ const getProductValueHelp = async (id) => {
 
   export const insertProductValue = async (requestBody) => {
     let request = JSON.parse(requestBody);
-    
+    console.log(request);
     const objekat = {
       id:v4(),
       ...request

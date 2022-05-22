@@ -1,5 +1,5 @@
 export async function getStockValue (stockID){
-  
+  console.log("Get stock value");
   const data = [
     { id: "1", name: "stock1", value: 100 },
     { id: "2", name: "stock2", value: 200 },

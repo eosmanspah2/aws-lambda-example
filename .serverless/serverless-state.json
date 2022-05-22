@@ -204,7 +204,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/stock/dev/1653258175662-2022-05-22T22:22:55.662Z/stock.zip"
+                "S3Key": "serverless/stock/dev/1653263025906-2022-05-22T23:43:45.906Z/stock.zip"
               },
               "Handler": "handler.stocksMarket",
               "Runtime": "nodejs14.x",
@@ -229,14 +229,14 @@
               "StocksLogGroup"
             ]
           },
-          "StocksLambdaVersionDtlN0pdOYXb91OkRojsuvoLkaT2hXuUOzkQzwfFVxw": {
+          "StocksLambdaVersionBOmYgpxeghb9vLTRQ3uuNllp2CB1p9TLy4LIwBobnw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "StocksLambdaFunction"
               },
-              "CodeSha256": "kFM4L52/8IZOdyuHR4Jq7kU60978yjWERnXsnF0vi4Y="
+              "CodeSha256": "9n7klOZGUs3eTypO33u78UiVlE3Sx2sT73d1FrBgw94="
             }
           },
           "ApiGatewayRestApi": {
@@ -394,96 +394,6 @@
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'*'",
                       "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,PUT,DELETE,GET'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": ""
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceDynamodbProductidVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodDynamodbOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": ""
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceDynamodb"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodSellableproductOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                       "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
                     },
                     "ResponseTemplates": {
@@ -493,7 +403,7 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceSellableproduct"
+                "Ref": "ApiGatewayResourceDynamodbProductidVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -822,7 +732,7 @@
               "StocksLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1653258165549": {
+          "ApiGatewayDeployment1653263016435": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -833,8 +743,6 @@
             "DependsOn": [
               "ApiGatewayMethodStockStockidVarOptions",
               "ApiGatewayMethodDynamodbProductidVarOptions",
-              "ApiGatewayMethodDynamodbOptions",
-              "ApiGatewayMethodSellableproductOptions",
               "ApiGatewayMethodStockStockidVarGet",
               "ApiGatewayMethodDynamodbProductidVarGet",
               "ApiGatewayMethodDynamodbPost",
@@ -916,7 +824,7 @@
           "StocksLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "StocksLambdaVersionDtlN0pdOYXb91OkRojsuvoLkaT2hXuUOzkQzwfFVxw"
+              "Ref": "StocksLambdaVersionBOmYgpxeghb9vLTRQ3uuNllp2CB1p9TLy4LIwBobnw"
             },
             "Export": {
               "Name": "sls-stock-dev-StocksLambdaFunctionQualifiedArn"
@@ -1089,22 +997,6 @@
             "http": {
               "path": "dynamoDB",
               "method": "post",
-              "cors": {
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "POST"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
               "integration": "AWS_PROXY"
             }
           },
@@ -1112,22 +1004,6 @@
             "http": {
               "path": "dynamoDB/{productID}",
               "method": "delete",
-              "cors": {
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "DELETE"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
               "integration": "AWS_PROXY"
             }
           },
@@ -1135,22 +1011,6 @@
             "http": {
               "path": "dynamoDB/{productID}",
               "method": "put",
-              "cors": {
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "PUT"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
               "integration": "AWS_PROXY"
             }
           },
@@ -1158,22 +1018,6 @@
             "http": {
               "path": "dynamoDB",
               "method": "get",
-              "cors": {
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "GET"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
               "integration": "AWS_PROXY"
             }
           },
@@ -1181,22 +1025,6 @@
             "http": {
               "path": "sellableProduct",
               "method": "get",
-              "cors": {
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "GET"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
               "integration": "AWS_PROXY"
             }
           }
@@ -1207,7 +1035,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "StocksLambdaVersionDtlN0pdOYXb91OkRojsuvoLkaT2hXuUOzkQzwfFVxw"
+        "versionLogicalId": "StocksLambdaVersionBOmYgpxeghb9vLTRQ3uuNllp2CB1p9TLy4LIwBobnw"
       }
     },
     "resources": {
@@ -1259,7 +1087,7 @@
     "artifact": "C:\\Users\\user\\Desktop\\aws-example\\aws-lambda-example\\.serverless\\stock.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/stock/dev/1653258175662-2022-05-22T22:22:55.662Z",
+    "artifactDirectoryName": "serverless/stock/dev/1653263025906-2022-05-22T23:43:45.906Z",
     "artifact": "stock.zip"
   }
 }

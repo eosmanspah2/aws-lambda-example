@@ -25,6 +25,7 @@ export async function getProduct(id){
 
 export async function insertProduct(data){
     try {
+      console.log("Ulazim u post 3");
       const product = await insertProductData(data);
       return product;
     } catch (err) {

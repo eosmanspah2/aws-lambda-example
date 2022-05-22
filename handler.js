@@ -4,25 +4,27 @@ import { getDbInformation } from "./adapters/DynamoDBAdapter.js";
 
 export async function stocksMarket(event){
   let response = null;
+  console.log("Usao u switch case: "+event.resource);
   try {
-    console.log("DOBRO JEEEE");
-    switch(event.path){
+    switch(event.resource){
       
       case "/stock/{StockID}":
+        console.log("Handler.js");
         const stockID = event.pathParameters.StockID;
         const stock = await getStocksRequest(stockID);
         return stock;
 
       case "/dynamoDB/{productID}":
-        const productId = event.pathParameters.productId;
+        console.log("Ulazim u post 1");
+        const productId = event.pathParameters.productID;
         response = await getDbInformation(event,productId);
         return response;
 
-      case "/dynamoDB/":
+      case "/dynamoDB":
         response = await getDbInformation(event,null);
         return response;
 
-      case "/sellableProduct/":
+      case "/sellableProduct":
         response = "sellableProduct route";
         return response;
       default:
