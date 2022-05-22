@@ -24,7 +24,6 @@ export async function getProduct(id){
 };
 
 export async function insertProduct(data){
-  console.log("3");
     try {
       const product = await insertProductData(data);
       return product;

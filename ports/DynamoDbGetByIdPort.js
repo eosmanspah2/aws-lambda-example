@@ -1,7 +1,8 @@
 import { getProduct } from "../domains/DynamoDbLogic.js";
 
-export const getProductPort = async (productId) => {
+export async function getProductPort (productId) {
   try {
+    console.log("Adapter");
     const product = await getProduct(productId);
     return product;
   } catch (err) {

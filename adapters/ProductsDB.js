@@ -1,11 +1,12 @@
-import aws from "aws-sdk";
-import { v4 } from "uuid";
+import AWS from '/var/runtime/node_modules/aws-sdk/lib/aws.js';
+import { v4, v5 } from "uuid";
+import { join } from 'path';
 
-aws.config.update({
+AWS.config.update({
     region: "us-east-1"
 });
 
-const documentClient = new aws.DynamoDB.DocumentClient();
+const documentClient = new AWS.DynamoDB.DocumentClient();
 const dynamoDBTableName = 'osmanspahicProducts';
 
 async function scanDynamoRecords(scanParams, itemArray) {
@@ -31,21 +32,13 @@ export const getProductsValue = async () => {
 }
 
 export const getProductValue = async (id) => {
-const product = await documentClient.get({
-  TableName: dynamoDBTableName,
-  Key: {
-    id: id,
-  }
-}).promise();
-
-if(!product.Item){
-  return {
-    statusCode: 404,
-    error: "404 not found"
-  }
+  try {
+    const Key = { id: id };
+    const data = await db.get({ TableName, Key }).promise();
+    return data.Item;
+} catch (error) {
+    console.log(error);
 }
-return product.Item;
-  
 }
 
 const getProductValueHelp = async (id) => {
@@ -67,21 +60,19 @@ const getProductValueHelp = async (id) => {
   }
 
   export const insertProductValue = async (requestBody) => {
+    let request = JSON.parse(requestBody);
     
-    console.log(requestBody);
-    const params = {
-      TableName: dynamodbTableName,
-      Item: requestBody
+    const objekat = {
+      id:v4(),
+      ...request
     }
-    return await documentClient.put(params).promise().then(() => {
-      const body = {
-        statusCode: 201,
-        body: requestBody
-      }
-      return body;
-    }, (error) => {
-      console.error('The error is: ', error);
-    });
+  
+    const params = {
+      TableName: dynamoDBTableName,
+      Item: objekat
+    }
+
+    return await documentClient.put(params).promise();
   }
 
   export const updateProductValue = async (id, requestBody) => {

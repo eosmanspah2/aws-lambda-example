@@ -8,12 +8,15 @@ export async function getDbInformation(event, productId){
   let response = null;
   try {
     switch(event.httpMethod){
-        case 'GET' && productId==null:
+        case 'GET':
+          if(productId == null){
             response = await getProductsPort();
-            break;
-        case 'GET' && productId!=null:
-            response = await getProductPort(productId);
-            break;
+          }
+          else{
+            
+            response = await getProductPort(productId);          
+          }
+          break;
         case 'POST':
             response = await postProductPort(event.body);
             break;

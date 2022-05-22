@@ -23,7 +23,6 @@ export async function getProductsData(){
   };
 
   export async function insertProductData(newData){
-    console.log("4");
     try {
       const data = await insertProductValue(newData);
       return data;

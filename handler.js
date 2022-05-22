@@ -5,15 +5,15 @@ import { getDbInformation } from "./adapters/DynamoDBAdapter.js";
 export async function stocksMarket(event){
   let response = null;
   try {
+    console.log("DOBRO JEEEE");
     switch(event.path){
-
+      
       case "/stock/{StockID}":
         const stockID = event.pathParameters.StockID;
         const stock = await getStocksRequest(stockID);
-        console.log("Iz handlera");
         return stock;
 
-      case "/dynamoDB/{productId}":
+      case "/dynamoDB/{productID}":
         const productId = event.pathParameters.productId;
         response = await getDbInformation(event,productId);
         return response;
@@ -23,13 +23,7 @@ export async function stocksMarket(event){
         return response;
 
       case "/sellableProduct/":
-        /*response = {
-          statusCode: 200,
-          body: JSON.stringify({
-            status: 200,
-            data: "Prosao sellableProduct"
-          });
-        return response;*/
+        response = "sellableProduct route";
         return response;
       default:
         response = {

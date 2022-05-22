@@ -4,7 +4,7 @@ export async function getStocksRequest(stockID){
   let res;
 
   try {
-    console.log("2");
+    
     const stockData = await retrieveStock(stockID);
     res = {
       statusCode: 200,

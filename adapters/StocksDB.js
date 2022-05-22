@@ -1,5 +1,5 @@
 export async function getStockValue (stockID){
-  console.log("6");
+  
   const data = [
     { id: "1", name: "stock1", value: 100 },
     { id: "2", name: "stock2", value: 200 },
@@ -12,12 +12,11 @@ export async function getStockValue (stockID){
   try {
     let stockData = null;
     for (let i = 0; i < data.length; i++) {
-      console.log("data.id: " + data[i].id + " stockID: " + stockID);
+
       if (data[i].id == stockID) {
         stockData = data[i];
       }
     }
-    console.log("Data: \n" + stockData);
     return stockData;
   } catch (err) {
     console.log(err);

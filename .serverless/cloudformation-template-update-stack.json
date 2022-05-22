@@ -181,7 +181,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/stock/dev/1653050035152-2022-05-20T12:33:55.152Z/stock.zip"
+          "S3Key": "serverless/stock/dev/1653258175662-2022-05-22T22:22:55.662Z/stock.zip"
         },
         "Handler": "handler.stocksMarket",
         "Runtime": "nodejs14.x",
@@ -206,14 +206,14 @@
         "StocksLogGroup"
       ]
     },
-    "StocksLambdaVersionQGbycjs8EMa4QrSk9fVB70ijTu0PbOqhxpEKcHhIw0": {
+    "StocksLambdaVersionDtlN0pdOYXb91OkRojsuvoLkaT2hXuUOzkQzwfFVxw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "StocksLambdaFunction"
         },
-        "CodeSha256": "eAj8JUqx6ypjTesk3VUSg46PmwAG+/KyyCFjm8np1B0="
+        "CodeSha256": "kFM4L52/8IZOdyuHR4Jq7kU60978yjWERnXsnF0vi4Y="
       }
     },
     "ApiGatewayRestApi": {
@@ -371,7 +371,7 @@
               "ResponseParameters": {
                 "method.response.header.Access-Control-Allow-Origin": "'*'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,PUT,DELETE,GET'"
               },
               "ResponseTemplates": {
                 "application/json": ""
@@ -381,6 +381,96 @@
         },
         "ResourceId": {
           "Ref": "ApiGatewayResourceDynamodbProductidVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodDynamodbOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceDynamodb"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodSellableproductOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceSellableproduct"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -709,7 +799,7 @@
         "StocksLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1653050024860": {
+    "ApiGatewayDeployment1653258165549": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -720,6 +810,8 @@
       "DependsOn": [
         "ApiGatewayMethodStockStockidVarOptions",
         "ApiGatewayMethodDynamodbProductidVarOptions",
+        "ApiGatewayMethodDynamodbOptions",
+        "ApiGatewayMethodSellableproductOptions",
         "ApiGatewayMethodStockStockidVarGet",
         "ApiGatewayMethodDynamodbProductidVarGet",
         "ApiGatewayMethodDynamodbPost",
@@ -801,7 +893,7 @@
     "StocksLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "StocksLambdaVersionQGbycjs8EMa4QrSk9fVB70ijTu0PbOqhxpEKcHhIw0"
+        "Ref": "StocksLambdaVersionDtlN0pdOYXb91OkRojsuvoLkaT2hXuUOzkQzwfFVxw"
       },
       "Export": {
         "Name": "sls-stock-dev-StocksLambdaFunctionQualifiedArn"

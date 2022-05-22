@@ -37,29 +37,41 @@ functions:
           path: /stock/{StockID}
           method: get
           cors: true
+          
       - http:
           path: /dynamoDB/{productID}
           method: get
           cors: true
+          
       - http:
           path: /dynamoDB/
           method: post
+          cors: true
+          
           
       - http:
           path: /dynamoDB/{productID}
           method: delete
+          cors: true
+          
           
       - http:
           path: /dynamoDB/{productID}
           method: put
+          cors: true
+          
           
       - http:
           path: /dynamoDB/
           method: get
+          cors: true
+          
           
       - http:
           path: /sellableProduct/
           method: get
+          cors: true
+          
           
 
 
