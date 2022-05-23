@@ -14,7 +14,12 @@ export async function stocksMarket(event){
 
       case "/dynamoDB/{productID}":
         const productId = event.pathParameters.productID;
-        response = await getDbInformation(event,productId)
+       // const queryParametars = event["queryStringParameters"]['currency'];
+        //console.log("Query string parametar: "+ queryParametars);
+        //const queryValidation = validateCurrencyCode(queryParametar)
+
+        response = await getDbInformation(event,productId);
+        //console.log("Response handler: " + response);
         return response;
 
       case "/dynamoDB":
@@ -34,7 +39,7 @@ export async function stocksMarket(event){
   }
  catch (err) {
     return {
-      'statusCode' : 500,
+      'statusCode' : 502,
       'body': JSON.stringify({message: "Internal server error"})
     } 
   }

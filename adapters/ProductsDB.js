@@ -65,7 +65,7 @@ export async function getProductValue (id){
     else{
       response = {
         statusCode: 200,
-        body: JSON.stringify(data.Item)
+        body: data.Item
       }
     }
     
