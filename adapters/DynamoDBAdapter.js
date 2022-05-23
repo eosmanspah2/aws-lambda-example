@@ -13,12 +13,11 @@ export async function getDbInformation(event, productId){
             response = await getProductsPort();
           }
           else{
-            
+            console.log("Ulazim u get 2");
             response = await getProductPort(productId);          
           }
           break;
         case 'POST':
-            console.log("Ulazim u post 2");
             response = await postProductPort(event.body);
             break;
         case 'PUT':

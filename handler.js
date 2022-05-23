@@ -15,9 +15,15 @@ export async function stocksMarket(event){
         return stock;
 
       case "/dynamoDB/{productID}":
-        console.log("Ulazim u post 1");
+        console.log("Ulazim u get 1");
         const productId = event.pathParameters.productID;
-        response = await getDbInformation(event,productId);
+        const product = await getDbInformation(event,productId);
+        response = {
+          'statusCode': 200,
+          'body': JSON.stringify({
+              data: product,
+          })
+      }
         return response;
 
       case "/dynamoDB":

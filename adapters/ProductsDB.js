@@ -7,7 +7,8 @@ AWS.config.update({
 });
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
-const dynamoDBTableName = 'osmanspahicProducts';
+const TableName = process.env.TABLE_NAME;
+const dynamoDBTableName = process.env.TABLE_NAME;
 
 async function scanDynamoRecords(scanParams, itemArray) {
     try {
@@ -31,13 +32,16 @@ export const getProductsValue = async () => {
     return allProducts;
 }
 
-export const getProductValue = async (id) => {
+export async function getProductValue (id){
+  console.log("Ulazim u get 6: "+id);
+  console.log(""+dynamoDBTableName);
   try {
     const Key = { id: id };
-    const data = await db.get({ TableName, Key }).promise();
+    const data = await documentClient.get({ TableName, Key }).promise();
+    console.log(data.Item);
     return data.Item;
-} catch (error) {
-    console.log(error);
+  } catch (error) {
+  console.log(error);
 }
 }
 

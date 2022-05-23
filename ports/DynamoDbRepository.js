@@ -6,6 +6,7 @@ import { insertProductValue} from "../adapters/ProductsDB.js";
 
 export async function getProductData(id){
   try {
+    console.log("Ulazim u get 5");
     const data = await getProductValue(id);
     return data;
   } catch (err) {
@@ -25,7 +26,6 @@ export async function getProductsData(){
   export async function insertProductData(newData){
     try {
       const data = await insertProductValue(newData);
-      console.log("Ulazim u post 4");
       return data;
     } catch (err) {
       return err;
