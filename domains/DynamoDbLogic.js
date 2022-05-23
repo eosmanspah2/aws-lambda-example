@@ -45,6 +45,7 @@ export async function deleteProduct(id){
 
 export async function updateProduct(id, newData){
     try {
+      console.log("Ulazim u update 4");
       const product = await updateProductData(id, newData);
       return product;
     } catch (err) {

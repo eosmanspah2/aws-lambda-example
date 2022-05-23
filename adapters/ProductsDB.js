@@ -81,10 +81,10 @@ const getProductValueHelp = async (id) => {
 
   export const updateProductValue = async (id, requestBody) => {
    try{
-    const product2 = await getProductValue(id);
-
+    console.log("Ulazim u update 6");
+    const requestBody2 = JSON.parse(requestBody);
     const product = {
-     ...requestBody,
+     ...requestBody2,
      id: id
    };
 
@@ -105,7 +105,7 @@ const getProductValueHelp = async (id) => {
 
   export const deleteProductValue = async (id) => {
     try{
-      console.log("Ulazim u delete 6");
+      console.log("Ulazim u delete ");
       const product = await getProductValueHelp(id);
 
       await documentClient.delete({

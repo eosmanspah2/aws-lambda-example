@@ -15,7 +15,7 @@ export async function stocksMarket(event){
         return stock;
 
       case "/dynamoDB/{productID}":
-        console.log("Ulazim u delete 1");
+        console.log("Ulazim u update 1");
         const productId = event.pathParameters.productID;
         const product = await getDbInformation(event,productId);
         response = {

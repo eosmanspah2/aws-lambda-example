@@ -20,10 +20,10 @@ export async function getDbInformation(event, productId){
             response = await postProductPort(event.body);
             break;
         case 'PUT':
+            console.log("Ulazim u update 2");
             response = await updateProductPort(productId,event.body);
             break;
         case 'DELETE':
-            console.log("Ulazim u delete 2");
             response = await deleteProductPort(productId);
             break;
         default:

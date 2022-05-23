@@ -34,6 +34,7 @@ export async function getProductsData(){
 
   export async function updateProductData(id,newData){
     try {
+      console.log("Ulazim u update 5");
       const data = await updateProductValue(id,newData);
       return data;
     } catch (err) {
