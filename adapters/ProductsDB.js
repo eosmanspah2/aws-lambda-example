@@ -10,26 +10,28 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 const TableName = process.env.TABLE_NAME;
 const dynamoDBTableName = process.env.TABLE_NAME;
 
+
 async function scanDynamoRecords(scanParams, itemArray) {
-    try {
-      const dynamoData = await documentClient.scan(scanParams).promise();
-      itemArray = itemArray.concat(dynamoData.Items);
-      if (dynamoData.LastEvaluatedKey) {
-        scanParams.ExclusiveStartkey = dynamoData.LastEvaluatedKey;
-        return await scanDynamoRecords(scanParams, itemArray);
-      }
-      return itemArray;
-    } catch(error) {
-      console.error('The error is: ', error);
+  try {
+    const dynamoData = await documentClient.scan(scanParams).promise();
+    itemArray = itemArray.concat(dynamoData.Items);
+    if (dynamoData.LastEvaluatedKey) {
+      scanParams.ExclusiveStartkey = dynamoData.LastEvaluatedKey;
+      return await scanDynamoRecords(scanParams, itemArray);
     }
+    return itemArray;
+  } catch(error) {
+    console.error('The error is: ', error);
   }
+}
 
 export const getProductsValue = async () => {
-    const params = {
-        TableName: dynamoDBTableName
-    }
-    const allProducts = await scanDynamoRecords(params, []);
-    return allProducts;
+  const params = {
+      TableName: TableName
+  }
+  const allProducts = await scanDynamoRecords(params, []);
+  console.log(allProducts);
+  return allProducts;
 }
 
 export async function getProductValue (id){

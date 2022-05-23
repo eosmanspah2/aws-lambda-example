@@ -16,6 +16,7 @@ export async function getProductData(id){
 
 export async function getProductsData(){
     try {
+      console.log("Ulazim u get 5");
       const data = await getProductsValue();
       return data;
     } catch (err) {

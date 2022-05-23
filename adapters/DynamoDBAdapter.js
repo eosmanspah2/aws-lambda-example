@@ -10,6 +10,7 @@ export async function getDbInformation(event, productId){
     switch(event.httpMethod){
         case 'GET':
           if(productId == null){
+            console.log("Ulazim u get 2");
             response = await getProductsPort();
           }
           else{
@@ -20,7 +21,6 @@ export async function getDbInformation(event, productId){
             response = await postProductPort(event.body);
             break;
         case 'PUT':
-            console.log("Ulazim u update 2");
             response = await updateProductPort(productId,event.body);
             break;
         case 'DELETE':

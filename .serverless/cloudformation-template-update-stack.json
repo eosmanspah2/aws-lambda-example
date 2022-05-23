@@ -181,7 +181,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/stock/dev/1653266215346-2022-05-23T00:36:55.346Z/stock.zip"
+          "S3Key": "serverless/stock/dev/1653268860717-2022-05-23T01:21:00.717Z/stock.zip"
         },
         "Handler": "handler.stocksMarket",
         "Runtime": "nodejs14.x",
@@ -206,14 +206,14 @@
         "StocksLogGroup"
       ]
     },
-    "StocksLambdaVersionSUpjKFZtimAtgfIUjgRKkRftrObfiZsjfQpWbb6OesY": {
+    "StocksLambdaVersion82pbhqpM8JWr0h4pwYVS0DJ3WIFF0dITZvBPaJPv4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "StocksLambdaFunction"
         },
-        "CodeSha256": "QtwTbamW3d/Qpnge6WUGCTH15vdYUFi6ZSgW5zf5KRc="
+        "CodeSha256": "6EaSBAjd8CyxFYf0AqrR1k4gHzR17L1csx6TuuMgg/A="
       }
     },
     "ApiGatewayRestApi": {
@@ -709,7 +709,7 @@
         "StocksLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1653266205939": {
+    "ApiGatewayDeployment1653268851363": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -801,7 +801,7 @@
     "StocksLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "StocksLambdaVersionSUpjKFZtimAtgfIUjgRKkRftrObfiZsjfQpWbb6OesY"
+        "Ref": "StocksLambdaVersion82pbhqpM8JWr0h4pwYVS0DJ3WIFF0dITZvBPaJPv4"
       },
       "Export": {
         "Name": "sls-stock-dev-StocksLambdaFunctionQualifiedArn"

@@ -7,6 +7,7 @@ import { deleteProductData} from "../ports/DynamoDbRepository.js";
 
 export async function getProducts(){
   try {
+    console.log("Ulazim u get 4");
     const products = await getProductsData();
     return products;
   } catch (err) {
