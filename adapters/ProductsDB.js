@@ -10,7 +10,6 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 const TableName = process.env.TABLE_NAME;
 const dynamoDBTableName = process.env.TABLE_NAME;
 
-
 async function scanDynamoRecords(scanParams, itemArray) {
   try {
     const dynamoData = await documentClient.scan(scanParams).promise();
@@ -26,25 +25,54 @@ async function scanDynamoRecords(scanParams, itemArray) {
 }
 
 export const getProductsValue = async () => {
-  const params = {
+  try{
+    const params = {
       TableName: TableName
+    }
+    let response = null;
+    const allProducts = await scanDynamoRecords(params, []);
+    console.log(allProducts);
+    if(allProducts==null || allProducts==[]){
+      response = {
+        statusCode: 404,
+        body: JSON.stringify({message: "There are no products in the database"})
+    }
+    }
+    else{
+      response = {
+        'statusCode': 200,
+        'body': JSON.stringify(allProducts)
+      }
+    }
+    return response;
   }
-  const allProducts = await scanDynamoRecords(params, []);
-  console.log(allProducts);
-  return allProducts;
+  catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getProductValue (id){
-  console.log("Ulazim u get 6: "+id);
-  console.log(""+dynamoDBTableName);
   try {
     const Key = { id: id };
     const data = await documentClient.get({ TableName, Key }).promise();
-    console.log(data.Item);
-    return data.Item;
+    let response = null;
+    if(data.Item==undefined){
+      response = {
+        statusCode: 404,
+        body: JSON.stringify({message:"404 not found"})
+      }
+    }
+    else{
+      response = {
+        statusCode: 200,
+        body: JSON.stringify(data.Item)
+      }
+    }
+    
+    return response;
   } catch (error) {
   console.log(error);
-}
+  }
 }
 
 const getProductValueHelp = async (id) => {
@@ -54,36 +82,47 @@ const getProductValueHelp = async (id) => {
       id: id,
     }
   }).promise();
-  
-  if(!product.Item){
-    return {
-      statusCode: 404,
-      error: "404 not found"
-    }
-  }
+
   return product.Item;
     
   }
 
   export const insertProductValue = async (requestBody) => {
-    let request = JSON.parse(requestBody);
-    console.log(request);
-    const objekat = {
-      id:v4(),
-      ...request
-    }
+    try{
+      let request = JSON.parse(requestBody);
+      let response = null;
+      const objekat = {
+        id:v4(),
+        ...request
+      }
   
-    const params = {
-      TableName: dynamoDBTableName,
-      Item: objekat
-    }
+      const params = {
+        TableName: dynamoDBTableName,
+        Item: objekat
+      }
 
-    return await documentClient.put(params).promise();
+      const result = await documentClient.put(params).promise();
+      if(result != null){
+        response = {
+        statusCode: 200,
+        body: JSON.stringify(objekat)
+        }
+      }
+      else{
+        response = {
+          statusCode: 404,
+          body: JSON.stringify({message:"404 not found"})
+        }
+      }
+      return response;
+      }
+      catch(e){
+        console.log(e);
+      }
   }
 
   export const updateProductValue = async (id, requestBody) => {
    try{
-    console.log("Ulazim u update 6");
     const requestBody2 = JSON.parse(requestBody);
     const product = {
      ...requestBody2,
@@ -94,11 +133,22 @@ const getProductValueHelp = async (id) => {
      TableName: dynamoDBTableName,
      Item: product
    }).promise();
+   
+   let response = null;
 
-   return{
-     statusCode: 200,
-     body: JSON.stringify(product)
-   }
+   if(product==null){
+    response = {
+      statusCode: 404,
+      body: JSON.stringify({message:"404 not found"})
+    }
+  }
+  else{
+    response = {
+      statusCode: 200,
+      body: JSON.stringify(product)
+    }
+  }
+  return response;
   }catch (e) {
     return e;
   }
@@ -107,9 +157,9 @@ const getProductValueHelp = async (id) => {
 
   export const deleteProductValue = async (id) => {
     try{
-      console.log("Ulazim u delete ");
+      let response = null;
       const product = await getProductValueHelp(id);
-
+      console.log(product);
       await documentClient.delete({
         TableName: dynamoDBTableName,
         Key: {
@@ -117,10 +167,19 @@ const getProductValueHelp = async (id) => {
         }
       }).promise();
 
-      return {
-        statusCode: 204,
-        body: JSON.stringify(product)
-      };
+      if(product==null){
+        response = {
+          statusCode: 404,
+          body: JSON.stringify({message:"404 not found"})
+        }
+      }
+      else{
+        response = {
+          statusCode: 200,
+          body: JSON.stringify(product)
+        }
+      }
+      return response;
     }
     catch(e) {
       return e;

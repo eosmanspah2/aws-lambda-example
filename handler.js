@@ -4,35 +4,21 @@ import { getDbInformation } from "./adapters/DynamoDBAdapter.js";
 
 export async function stocksMarket(event){
   let response = null;
-  console.log("Usao u switch case: "+event.resource);
   try {
     switch(event.resource){
       
       case "/stock/{StockID}":
-        console.log("Handler.js");
         const stockID = event.pathParameters.StockID;
         const stock = await getStocksRequest(stockID);
         return stock;
 
       case "/dynamoDB/{productID}":
         const productId = event.pathParameters.productID;
-        const product = await getDbInformation(event,productId);
-        response = {
-          'statusCode': 200,
-          'body': JSON.stringify({
-              data: product,
-          })
-      }
+        response = await getDbInformation(event,productId)
         return response;
 
       case "/dynamoDB":
-        console.log("Ulazim u get 1");
-        const result = await getDbInformation(event,null);
-        console.log("Tu smo"+result);
-        response = {
-          'statusCode':200,
-          'body': result
-        }
+        response = await getDbInformation(event,null);
         return response;
 
       case "/sellableProduct":
@@ -41,13 +27,15 @@ export async function stocksMarket(event){
       default:
         response = {
           statusCode: 404,
-          error: "404 not found"
+          body: JSON.stringify({message: "Path doesn't exist!"})
         }
     }
     return response;
   }
  catch (err) {
-    console.log(err);
-    return err;
+    return {
+      'statusCode' : 500,
+      'body': JSON.stringify({message: "Internal server error"})
+    } 
   }
 };

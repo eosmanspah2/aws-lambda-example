@@ -6,7 +6,7 @@ import { insertProductValue} from "../adapters/ProductsDB.js";
 
 export async function getProductData(id){
   try {
-    console.log("Ulazim u get 5");
+    
     const data = await getProductValue(id);
     return data;
   } catch (err) {
@@ -16,7 +16,7 @@ export async function getProductData(id){
 
 export async function getProductsData(){
     try {
-      console.log("Ulazim u get 5");
+      
       const data = await getProductsValue();
       return data;
     } catch (err) {
@@ -35,7 +35,7 @@ export async function getProductsData(){
 
   export async function updateProductData(id,newData){
     try {
-      console.log("Ulazim u update 5");
+      
       const data = await updateProductValue(id,newData);
       return data;
     } catch (err) {
@@ -45,7 +45,7 @@ export async function getProductsData(){
 
   export async function deleteProductData(id){
     try {
-      console.log("Ulazim u delete 5");
+      
       const data = await deleteProductValue(id);
       return data;
     } catch (err) {

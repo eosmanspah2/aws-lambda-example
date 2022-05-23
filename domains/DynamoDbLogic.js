@@ -7,7 +7,7 @@ import { deleteProductData} from "../ports/DynamoDbRepository.js";
 
 export async function getProducts(){
   try {
-    console.log("Ulazim u get 4");
+   
     const products = await getProductsData();
     return products;
   } catch (err) {
@@ -17,7 +17,7 @@ export async function getProducts(){
 
 export async function getProduct(id){
     try {
-      console.log("Ulazim u get 4");
+      
       const product = await getProductData(id);
       return product;
     } catch (err) {
@@ -36,7 +36,7 @@ export async function insertProduct(data){
 
 export async function deleteProduct(id){
     try {
-      console.log("Ulazim u delete 4");
+      
       const product = await deleteProductData(id);
       return product;
     } catch (err) {
@@ -46,7 +46,7 @@ export async function deleteProduct(id){
 
 export async function updateProduct(id, newData){
     try {
-      console.log("Ulazim u update 4");
+      
       const product = await updateProductData(id, newData);
       return product;
     } catch (err) {
