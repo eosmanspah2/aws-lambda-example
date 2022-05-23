@@ -105,6 +105,7 @@ const getProductValueHelp = async (id) => {
 
   export const deleteProductValue = async (id) => {
     try{
+      console.log("Ulazim u delete 6");
       const product = await getProductValueHelp(id);
 
       await documentClient.delete({

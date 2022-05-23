@@ -13,7 +13,6 @@ export async function getDbInformation(event, productId){
             response = await getProductsPort();
           }
           else{
-            console.log("Ulazim u get 2");
             response = await getProductPort(productId);          
           }
           break;
@@ -24,6 +23,7 @@ export async function getDbInformation(event, productId){
             response = await updateProductPort(productId,event.body);
             break;
         case 'DELETE':
+            console.log("Ulazim u delete 2");
             response = await deleteProductPort(productId);
             break;
         default:

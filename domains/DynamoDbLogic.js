@@ -35,6 +35,7 @@ export async function insertProduct(data){
 
 export async function deleteProduct(id){
     try {
+      console.log("Ulazim u delete 4");
       const product = await deleteProductData(id);
       return product;
     } catch (err) {

@@ -43,6 +43,7 @@ export async function getProductsData(){
 
   export async function deleteProductData(id){
     try {
+      console.log("Ulazim u delete 5");
       const data = await deleteProductValue(id);
       return data;
     } catch (err) {
